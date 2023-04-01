@@ -2,31 +2,34 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const corse = require("cors");
+const { read, readSync } = require("fs");
+const cookieParser = require("cookie-parser");
+
 const corsOptions = require("./config/coreOptions");
 const { logger } = require("./middleware/logEvent");
 const { errorHandler } = require("./middleware/errorHandler");
-const { read, readSync } = require("fs");
+const { verifyJWT } = require("./middleware/JWT");
 const PORT = process.env.PORT || 3500;
 
-// custom middleware logger
 app.use(logger);
 
-// Cross Origin Resource Sharing
 app.use(corse(corsOptions));
 
-// build-in middleware to handle urlencoded data (form-data)
 app.use(express.urlencoded({ extended: false }));
 
-// build-in middleware for json
 app.use(express.json());
 
-// serve static file
+app.use(cookieParser());
+
 app.use("/", express.static(path.join(__dirname, "/public")));
 
 // routes
 app.use("/", require("./routes/root"));
 app.use("/register", require("./routes/register"));
 app.use("/auth", require("./routes/auth"));
+app.use("/refresh", require("./routes/refresh"));
+
+app.use(verifyJWT);
 app.use("/employees", require("./routes/api/employees"));
 
 app.get("/*", (req, res) => {
