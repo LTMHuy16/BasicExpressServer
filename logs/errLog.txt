@@ -1,1 +1,1 @@
-20230315	08:42:10	c3bc43c1-e09c-4184-973d-b5afc0284846	Error: Not allowed by CORS
+20230315	08:42:10	c3bc43c1-e09c-4184-973d-b5afc0284846	Error: Not allowed by CORS20230402	10:57:57	8a95206d-eb6b-4ebd-8ad9-a06e7c04d673	TypeError: authHeader?.startsWidth is not a function20230403	22:03:58	57719060-060b-4f28-93f6-8c8317c41296	TypeError: authHeader?.startsWidth is not a function
